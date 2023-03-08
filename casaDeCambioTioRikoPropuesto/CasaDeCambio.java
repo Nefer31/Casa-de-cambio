@@ -75,7 +75,7 @@ public class CasaDeCambio {
      * @return true si pudo comprar
      */
     public boolean comprarBolivares(int cantidad) {
-        boolean puedeComprar = false;//COMPLETE
+        boolean puedeComprar = false;
         //COMPLETE
         return puedeComprar;
     }//fin comprarBolivares
