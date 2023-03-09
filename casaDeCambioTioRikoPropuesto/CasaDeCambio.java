@@ -66,7 +66,7 @@ public class CasaDeCambio {
      * @return regresa true cuando pudo cambiar ambos precios, en caso contrario falla.
      */   
     public boolean cambiarPrecioDelBolivar(float precioDeCompra, float precioDeVenta) {
-        return true;
+        return false;
     }//fin cambiarPrecioDelBolivar
     
     /**
@@ -75,7 +75,7 @@ public class CasaDeCambio {
      * @return true si pudo comprar
      */
     public boolean comprarBolivares(int cantidad) {
-        boolean puedeComprar = false;
+        boolean puedeComprar = false;//COMPLETE
         //COMPLETE
         return puedeComprar;
     }//fin comprarBolivares
