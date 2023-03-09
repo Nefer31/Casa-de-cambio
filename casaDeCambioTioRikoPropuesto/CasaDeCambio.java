@@ -20,32 +20,38 @@ public class CasaDeCambio {
      * Default constructor
      */
     public CasaDeCambio() {
+        precioDeCompra = 0;
+        precioDeVenta = 0;
+        bolivaresComprados = 0;
+        bolivaresVendidos = 0;
+        bolivaresEnCaja = 0;
+        pesosEnCaja = 0;
     }
     
     //COMPLETE GET 
     //No tiene sentido tener SET... piense, pregunte...
 
     public float getPesosEnCaja(){
-        return 0;
+        return pesosEnCaja;
     }
 
     public int getBolivaresComprados(){
-        return 0;
+        return bolivaresComprados;
     }
 
     public int getBolivaresVendidos(){
-        return 0;
+        return bolivaresVendidos;
     }
 
     public float getBolivaresEnCaja(){
-        return 0;
+        return bolivaresEnCaja;
     }
      public float getPrecioDeCompra(){
-        return 0;
+        return precioDeCompra;
      }
 
      public float getPrecioDeVenta(){
-        return 0;
+        return precioDeVenta;
      }
     
     /**
@@ -53,7 +59,7 @@ public class CasaDeCambio {
      */
     public float getGananciaEnUnBolivar() {
         float diferencia;
-        diferencia = getPrecioDeCompra() - getPrecioDeVenta();
+        diferencia = getPrecioDeVenta()-getPrecioDeCompra();
         return diferencia;
         //COMPLETE
     }
@@ -66,7 +72,13 @@ public class CasaDeCambio {
      * @return regresa true cuando pudo cambiar ambos precios, en caso contrario falla.
      */   
     public boolean cambiarPrecioDelBolivar(float precioDeCompra, float precioDeVenta) {
-        return false;
+        boolean precioValido = precioDeCompra > 0 && precioDeVenta > precioDeCompra;
+        if (precioValido) {
+            this.precioDeCompra = precioDeCompra;
+            this.precioDeVenta = precioDeVenta;
+        }
+        return precioValido;
+    
     }//fin cambiarPrecioDelBolivar
     
     /**
@@ -75,9 +87,14 @@ public class CasaDeCambio {
      * @return true si pudo comprar
      */
     public boolean comprarBolivares(int cantidad) {
-        boolean puedeComprar = false;//COMPLETE
-        //COMPLETE
-        return puedeComprar;
+        float costoTotal = precioDeCompra * cantidad;
+        boolean puedeComprar = pesosEnCaja > 0 && pesosEnCaja >= costoTotal;//COMPLETE
+    if (puedeComprar) {
+        bolivaresComprados += cantidad;
+        bolivaresEnCaja += cantidad;
+        pesosEnCaja -= costoTotal;
+    }
+    return puedeComprar;
     }//fin comprarBolivares
     
     /**
@@ -86,8 +103,14 @@ public class CasaDeCambio {
      * @return
      */
     public boolean venderBolivares(int cantidad) {
-        boolean puedeVender = false;//COMPLETE
+        float ingresosTotales = precioDeVenta * cantidad;
+        boolean puedeVender = cantidad < bolivaresEnCaja && precioDeVenta > precioDeCompra;//COMPLETE
         //COMPLETE
+        if (puedeVender) {
+            bolivaresVendidos += cantidad;
+            bolivaresEnCaja -= cantidad;
+            pesosEnCaja += ingresosTotales;
+        }
         return puedeVender;
     }//fin venderBolivares
     
@@ -96,7 +119,8 @@ public class CasaDeCambio {
      * @return los impuestos, el 16% de los bolivares vendidos, convirtiendo a pesos
      */
     public float getImpuestos() {
-        return 0;//COMPLETE
+        float impuestos = (getBolivaresVendidos() * 0.16f) * getPrecioDeVenta();
+        return impuestos;//COMPLETE
     }//fin getImpuestos
     
     /**
@@ -104,7 +128,8 @@ public class CasaDeCambio {
      * @return las ganancias, que corresponden al dinero en pesos en caja menos los impuestos
      */
     public float getGanancias() {
-        return 0;//COMPLETE
+        float ganancias = (getBolivaresVendidos() * getPrecioDeVenta()) - getImpuestos();
+        return ganancias;//COMPLETE
     }//fin getGanancias
     
     /**
@@ -113,6 +138,9 @@ public class CasaDeCambio {
      */
     public void inyectarPesos(int cantidad) {
         //COMPLETE
+        if (cantidad > 0) {
+            pesosEnCaja += cantidad;
+        }
     }//fin inyectarPesos
     
     /**
@@ -121,8 +149,10 @@ public class CasaDeCambio {
      */
     public void inyectarBolivares(int cantidad) {
         //COMPLETE
+        if (cantidad > 0) {
+            bolivaresEnCaja += cantidad;
+        }
     }
-
 }//End class
 
 
